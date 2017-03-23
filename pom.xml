@@ -96,6 +96,16 @@
       <version>${lwjgl.version}</version>
       <classifier>natives-linux</classifier>
     </dependency>
+    <dependency>
+      <groupId>javax.usb</groupId>
+      <artifactId>usb-api</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.usb4java</groupId>
+      <artifactId>usb4java-javax</artifactId>
+      <version>1.2.0</version>
+    </dependency>
   </dependencies>
 
     <repositories>
