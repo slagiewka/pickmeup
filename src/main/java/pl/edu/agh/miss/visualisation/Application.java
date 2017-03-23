@@ -1,5 +1,4 @@
 package pl.edu.agh.miss.visualisation;
-
 import au.edu.federation.utils.Vec3f;
 
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
