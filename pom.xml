@@ -56,22 +56,16 @@
       <groupId>au.edu.federation.caliko</groupId>
       <artifactId>caliko</artifactId>
       <version>1.2</version>
-      <!--<scope>system</scope>-->
-      <!--<systemPath>${project.basedir}/libs/caliko-1.2.jar</systemPath>-->
     </dependency>
     <dependency>
       <groupId>au.edu.federation.caliko</groupId>
       <artifactId>caliko-visualisation</artifactId>
       <version>1.2</version>
-      <!--<scope>system</scope>-->
-      <!--<systemPath>${project.basedir}/libs/caliko-visualisation-1.2.jar</systemPath>-->
     </dependency>
     <dependency>
       <groupId>com.iamcontent.public-java.devices</groupId>
       <artifactId>iamcontent-pololu-servo-controllers</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-      <!--<scope>system</scope>-->
-      <!--<systemPath>${project.basedir}/libs/iamcontent-pololu-servo-controllers-0.0.1-SNAPSHOT.jar</systemPath>-->
     </dependency>
     <dependency>
       <groupId>org.lwjgl</groupId>

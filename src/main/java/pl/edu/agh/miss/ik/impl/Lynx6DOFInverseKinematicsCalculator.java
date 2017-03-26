@@ -5,7 +5,9 @@ import pl.edu.agh.miss.ik.InverseKinematicsCalculator;
 import java.util.Map;
 
 public class Lynx6DOFInverseKinematicsCalculator implements InverseKinematicsCalculator {
-    public Map<Integer, Double> calculateResult() {
+
+    @Override
+    public Map<Integer, Double> calculateResults(double x, double y, double z, double angle) {
         return null;
     }
 }
