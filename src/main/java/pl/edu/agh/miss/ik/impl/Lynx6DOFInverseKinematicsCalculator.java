@@ -22,9 +22,15 @@ public class Lynx6DOFInverseKinematicsCalculator implements InverseKinematicsCal
         double t1 = p1-90;
         double t2 = p2-t1;
         double t3 = angle - p2;
-        servoPositions.put(1, t1);
-        servoPositions.put(2, t2);
-        servoPositions.put(3, t3);
+        if(t1 > -60 && t1 < 60 && t2 > -100 && t2 < 10 && t3 > -45 && t3 < 45){
+            servoPositions.put(1, t1);
+            servoPositions.put(2, t2);
+            servoPositions.put(3, t3);
+        }
+        System.out.println("Servo angles out of possible range");
+        System.out.println("t1 = " + t1);
+        System.out.println("t2 = " + t2);
+        System.out.println("t3 = " + t3);
         return servoPositions;
     }
 

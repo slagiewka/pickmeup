@@ -9,6 +9,7 @@ import pl.edu.agh.miss.usb.ShowTopology;
 
 import javax.usb.UsbDevice;
 import javax.usb.UsbHub;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +28,16 @@ public class PololuArmController implements ArmController {
     }
 
     public void setPosition(double x, double y, double z, double angle) {
-        Map<Integer, Double> result = inverseKinematicsCalculator.calculateResults(x, y, z, angle);
+        Map<Integer, Double> result = new LinkedHashMap<>();
+        double width = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+        result.put(0, calculateBaseRotationAngle(x,y));
+        double height = z;
+        result.putAll(inverseKinematicsCalculator.calculateResults(width, height, angle));
         setServoPositions(result);
+    }
+
+    private double calculateBaseRotationAngle(double x, double y) {
+        return Math.atan2(y, x) * 180 / Math.PI;
     }
 
     private void setServoPositions(Map<Integer, Double> positions){
