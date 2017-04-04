@@ -1,4 +1,5 @@
 package pl.edu.agh.miss.visualisation;
+import au.edu.federation.caliko.FabrikChain2D;
 import au.edu.federation.utils.Vec3f;
 
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
@@ -27,8 +28,6 @@ public class Application
 	// State tracking variables
 	static boolean use3dDemo           = false;
 	static int     demoNumber          = 1;
-	static int     num2dDemos          = 8;
-	static int     num3dDemos          = 12;
 	static boolean fixedBaseMode       = true;
 	static boolean rotateBasesMode     = false;
 	static boolean drawLines           = true;
@@ -46,12 +45,12 @@ public class Application
 	// Declare a CalikoDemo object which can run our 3D and 2D demonstration scenarios
 	static CalikoDemo demo;
 
-	public static void main(final String[] args)
-	{
+
+	public static void drawChain(FabrikChain2D chain){
 		try
 		{
 			// Instantiate the relevant demo type and enter the main loop
-			Application.demo = new CalikoDemo2D();
+			Application.demo = new CalikoDemo2D(chain);
 			Application.mainLoop();
 		}
 		catch (Exception e) { e.printStackTrace();          }

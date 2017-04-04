@@ -63,6 +63,17 @@ public class CalikoDemo2D extends CalikoDemo{
      */
     public CalikoDemo2D() { setup(); }
 
+    public CalikoDemo2D(FabrikChain2D chain) {
+        setup(chain);
+    }
+
+    public void setup(FabrikChain2D chain) {
+        String demoName = "Lynxmotion6DOF demo.";
+        Application.window.setWindowTitle(demoName);
+        mStructure = new FabrikStructure2D();
+        mStructure.addChain(chain);
+    }
+
     /**
      * Set up a demo consisting of an arrangement of 2D IK chain(s).
      *
@@ -70,11 +81,11 @@ public class CalikoDemo2D extends CalikoDemo{
     public void setup()
     {
         // Update window title
-        String demoName = "Demo 1 - Chain with fixed base, GLOBAL_ABSOLUTE base-bone constraints, and joint constraints.";
+        String demoName = "Lynxmotion6DOF demo.";
         Application.window.setWindowTitle(demoName);
 
         // Instantiate our FabrikStructure2D
-        mStructure = new FabrikStructure2D(demoName);
+        mStructure = new FabrikStructure2D();
 
         // Create a new chain
         FabrikChain2D chain = new FabrikChain2D();
