@@ -18,6 +18,9 @@ import static pl.edu.agh.miss.usb.FindUsbDevice.getUsbDevicesWithId;
 public class PololuArmController implements ArmController {
     private final short PRODUCT_ID;
     private final short VENDOR_ID;
+    private final short X_RANGE = 20;
+    private final short Y_RANGE = 20;
+    private final short ARM_RANGE = 20;
 
     InverseKinematicsCalculator inverseKinematicsCalculator;
 
@@ -28,6 +31,11 @@ public class PololuArmController implements ArmController {
     }
 
     public void setPosition(double x, double y, double z, double angle) {
+        if(Math.abs(x) > X_RANGE || Math.abs(y) > Y_RANGE || x*x + y*y > ARM_RANGE*ARM_RANGE || z < 0){
+            System.out.println("Target unreachable. Out of range");
+            return;
+        }
+
         Map<Integer, Double> result = new LinkedHashMap<>();
         double width = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
         result.put(0, calculateBaseRotationAngle(x,y));
@@ -42,15 +50,37 @@ public class PololuArmController implements ArmController {
 
     private void setServoPositions(Map<Integer, Double> positions){
         PololuMaestroServoCard servoCard = getServo();
+
         if(servoCard != null){
             for (Map.Entry<Integer, Double> channelValueEntry : positions.entrySet()) {
                 short channel = channelValueEntry.getKey().shortValue();
-                short value = channelValueEntry.getValue().shortValue();
+
+                short value = calculateServoPosition(channel, channelValueEntry.getValue());
                 System.out.println("Channel: " + channel + ", value: " + value);
                 servoCard.setRawPosition(channel, value);
             }
         }
     }
+
+    private short calculateServoPosition(short channel, double angle){
+        short DIVIDER = 0;
+        short SUBTRAHEND = 0;
+        switch(channel){
+            case 0:
+            case 3:
+                DIVIDER = 45;
+                break;
+            case 1:
+                DIVIDER = 60;
+                break;
+            case 2:
+                DIVIDER = 55;
+                SUBTRAHEND = 45;
+                break;
+        }
+        return (short)((angle - SUBTRAHEND) * 500 / DIVIDER + 1500);
+    }
+
 
     private PololuMaestroServoCard getServo(){
         UsbHub virtualRootUsbHub = ShowTopology.getVirtualRootUsbHub();
