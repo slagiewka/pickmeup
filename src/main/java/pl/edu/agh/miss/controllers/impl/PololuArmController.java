@@ -58,6 +58,7 @@ public class PololuArmController implements ArmController {
                 short value = calculateServoPosition(channel, channelValueEntry.getValue());
                 System.out.println("Channel: " + channel + ", value: " + value);
                 servoCard.setRawPosition(channel, value);
+
             }
         }
     }
@@ -74,8 +75,8 @@ public class PololuArmController implements ArmController {
                 DIVIDER = 60;
                 break;
             case 2:
-                DIVIDER = 55;
-                SUBTRAHEND = 45;
+                DIVIDER = 50;
+                SUBTRAHEND = 30;
                 break;
         }
         return (short)((angle - SUBTRAHEND) * 500 / DIVIDER + 1500);
