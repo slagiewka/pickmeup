@@ -9,7 +9,7 @@ public class Lynx6DOFInverseKinematicsCalculator implements InverseKinematicsCal
     private static final double BASE_HEIGHT = 6;
     private static final double HUMERUS = 12;
     private static final double ULNA = 12;
-    private static final double HAND = 14;
+    private static final double HAND = 13;
 
     @Override
     public Map<Integer, Double> calculateResults(double x, double z, double angle) {
@@ -24,7 +24,7 @@ public class Lynx6DOFInverseKinematicsCalculator implements InverseKinematicsCal
         double t3 = angle - p2;
         if(t1 > -60 && t1 < 60 && t2 > -20 && t2 < 80 && t3 > -45 && t3 < 45){
             servoPositions.put(1, t1);
-            servoPositions.put(2, t2);
+            servoPositions.put(2, -t2);
             servoPositions.put(3, t3);
         } else {
             System.out.println("Servo angles out of possible range");

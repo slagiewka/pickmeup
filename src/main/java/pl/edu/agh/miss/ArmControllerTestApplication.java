@@ -21,38 +21,56 @@ import java.util.List;
 import java.util.Map;
 
 public class ArmControllerTestApplication {
-    private static short PRODUCT_ID = 0x5170;
-    private static short VENDOR_ID = 0x13d3;
+    private static short PRODUCT_ID = 0x0089;
+    private static short VENDOR_ID = 0x1ffb;
 
     private static final float BASE_HEIGHT = 6;
     private static final float HUMERUS = 12;
     private static final float ULNA = 12;
     private static final float HAND = 14;
 
-    public static void main(String[] args) throws PortInUseException, UnsupportedCommOperationException, NoSuchPortException, IOException {
+    public static void main(String[] args) throws PortInUseException, UnsupportedCommOperationException, NoSuchPortException, IOException, InterruptedException {
         if(args.length == 2){
             PRODUCT_ID = Short.parseShort(args[0]);
             VENDOR_ID = Short.parseShort(args[1]);
         }
-        ArmController armController = new PololuArmController(PRODUCT_ID, VENDOR_ID);
-        armController.setPosition(4, 4, 4, 90);
-        InverseKinematicsCalculator inverseKinematicsCalculator = new Lynx6DOFInverseKinematicsCalculator();
-        FabrikChain2D chain = createChain(inverseKinematicsCalculator.calculateResults(30,20,90));
-        if(chain != null){
-            Application.drawChain(chain);
-        }
 
-        SerialPort hokuyoSerialPort = SerialPortHelper.getHokuyoSerialPort("/dev/ttyS8");
+        SerialPort hokuyoSerialPort = SerialPortHelper.getHokuyoSerialPort("/dev/ttyS80");
         SCIP scip = new SCIP(hokuyoSerialPort.getInputStream(), hokuyoSerialPort.getOutputStream());
         scip.laserOn();
 
         MapPoint closest = new MapPoint(1000.0, 0.0, 0);
         List<MapPoint> pointList = scip.singleScan();
+        scip.laserOff();
+        hokuyoSerialPort.close();
         for (MapPoint point : pointList) {
             if (point.getDistance() > 15.0 && point.getDistance() < closest.getDistance()) {
                 closest = point;
             }
         }
+
+        double x = closest.xValue() / 10;
+        double y = closest.yValue() / 10;
+        System.out.println("x: " + x + ". y: " + y);
+        double z = 6.0;
+
+        ArmController armController = new PololuArmController(PRODUCT_ID, VENDOR_ID);
+        armController.setPosition(3, 0, 25, 0, false);
+        Thread.sleep(2000);
+        armController.setPosition(0.9 * x, 0.9 * y, z+2.0, -45, false);
+//        try {
+        Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        armController.setPosition(x, y, z, -45, true);
+        Thread.sleep(2000);
+        armController.setPosition(3, 0, 25, 0, true);
+//        InverseKinematicsCalculator inverseKinematicsCalculator = new Lynx6DOFInverseKinematicsCalculator();
+//        FabrikChain2D chain = createChain(inverseKinematicsCalculator.calculateResults(Math.sqrt(x*x + y*y)+8.0, z, -45));
+//        if(chain != null){
+//            Application.drawChain(chain);
+//        }
     }
 
     private static FabrikChain2D createChain(Map<Integer, Double> angles){
