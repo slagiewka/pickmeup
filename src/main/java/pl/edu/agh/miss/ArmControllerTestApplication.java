@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ArmControllerTestApplication {
-    private static short PRODUCT_ID = 123;
-    private static short VENDOR_ID = 123;
+    private static short PRODUCT_ID = 0x5170;
+    private static short VENDOR_ID = 0x13d3;
 
     private static final float BASE_HEIGHT = 6;
     private static final float HUMERUS = 12;

@@ -7,9 +7,8 @@ package pl.edu.agh.miss.usb;/*
  * http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
  */
 
-import java.util.*;
-
 import javax.usb.*;
+import java.util.List;
 
 /**
  * Show the topology tree.
