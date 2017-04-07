@@ -72,6 +72,26 @@
           <artifactId>iamcontent-usb</artifactId>
           <version>0.0.1-SNAPSHOT</version>
       </dependency>
+      <dependency>
+          <groupId>com.iamcontent.public-java.io</groupId>
+          <artifactId>iamcontent-io-channels</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+          <groupId>com.iamcontent.public-java.io</groupId>
+          <artifactId>iamcontent-cli</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+          <groupId>com.iamcontent.public-java.io</groupId>
+          <artifactId>iamcontent-servos</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+          <groupId>com.iamcontent.public-java.io</groupId>
+          <artifactId>iamcontent-io-core</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
     <dependency>
       <groupId>org.lwjgl</groupId>
       <artifactId>lwjgl</artifactId>
