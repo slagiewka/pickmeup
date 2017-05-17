@@ -37,7 +37,7 @@ public class PololuArmController implements ArmController {
         }
 
         Map<Integer, Double> result = new LinkedHashMap<>();
-        double width = Math.sqrt(Math.pow(x,2) + Math.pow(y,2)) + 13.0;
+        double width = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
         result.put(0, calculateBaseRotationAngle(x,y));
         double height = z;
         result.putAll(inverseKinematicsCalculator.calculateResults(width, height, angle));

@@ -9,7 +9,7 @@ public class Lynx6DOFInverseKinematicsCalculator implements InverseKinematicsCal
     private static final double BASE_HEIGHT = 6;
     private static final double HUMERUS = 12;
     private static final double ULNA = 12;
-    private static final double HAND = 13;
+    private static final double HAND = 12;
 
     @Override
     public Map<Integer, Double> calculateResults(double x, double z, double angle) {
