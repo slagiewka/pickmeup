@@ -10,6 +10,9 @@ import au.edu.federation.utils.Colour4f;
 import au.edu.federation.utils.Utils;
 import au.edu.federation.utils.Vec2f;
 import au.edu.federation.utils.Vec3f;
+import pl.edu.agh.miss.ik.impl.Lynx6DOFInverseKinematicsCalculator;
+
+import java.util.Map;
 
 /**
  * Hello world!
@@ -205,4 +208,32 @@ public class CalikoDemo2D extends CalikoDemo{
         mTargetPoint.draw( OpenGLWindow.worldSpaceMousePos, Utils.YELLOW, 5.0f, Application.window.getMvpMatrix() );
 
     } // End of draw method
+
+    public static FabrikChain2D createChain(Map<Integer, Double> angles){
+        if(angles.size() < 3){
+            System.out.println("Cannot create chain");
+            return null;
+        }
+
+        FabrikChain2D chain = new FabrikChain2D();
+
+        FabrikBone2D basebone;
+        basebone = new FabrikBone2D(new Vec2f(0.0f, -Lynx6DOFInverseKinematicsCalculator.BASE_HEIGHT), new Vec2f(0.0f, 0.0f) );
+        basebone.setClockwiseConstraintDegs(0);
+        basebone.setAnticlockwiseConstraintDegs(0);
+        chain.addBone(basebone);
+
+        chain.setFixedBaseMode(true);
+        chain.setBaseboneConstraintType(FabrikChain2D.BaseboneConstraintType2D.GLOBAL_ABSOLUTE);
+        chain.setBaseboneConstraintUV( new Vec2f(0.0f, 1.0f) );
+
+        float ang1 = (float)(90 + angles.get(1));
+        float ang2 = ang1 + (float)( angles.get(2) - 90);
+        float ang3 = ang1 + (float)(90 + angles.get(2)) + (float)(angles.get(3) - 180);
+        chain.addConsecutiveBone(new Vec2f((float)Math.cos(Math.toRadians(ang1)), (float)Math.sin(Math.toRadians(ang1))), Lynx6DOFInverseKinematicsCalculator.HUMERUS);
+        chain.addConsecutiveBone(new Vec2f((float)Math.cos(Math.toRadians(ang2)), (float)Math.sin(Math.toRadians(ang2))), Lynx6DOFInverseKinematicsCalculator.ULNA);
+        chain.addConsecutiveBone(new Vec2f((float)Math.cos(Math.toRadians(ang3)), (float)Math.sin(Math.toRadians(ang3))), Lynx6DOFInverseKinematicsCalculator.HAND);
+
+        return chain;
+    }
 }
