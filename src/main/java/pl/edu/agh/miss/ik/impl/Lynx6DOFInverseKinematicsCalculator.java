@@ -6,10 +6,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Lynx6DOFInverseKinematicsCalculator implements InverseKinematicsCalculator {
-    public static final float BASE_HEIGHT = 6;
-    public static final float HUMERUS = 12;
-    public static final float ULNA = 12;
-    public static final float HAND = 12;
+    public static final float BASE_HEIGHT = 60;
+    public static final float HUMERUS = 120;
+    public static final float ULNA = 120;
+    public static final float HAND = 120;
 
     @Override
     public Map<Integer, Double> calculateResults(double x, double z, double angle) {

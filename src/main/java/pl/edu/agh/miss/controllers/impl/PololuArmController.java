@@ -18,9 +18,9 @@ import static pl.edu.agh.miss.usb.FindUsbDevice.getUsbDevicesWithId;
 public class PololuArmController implements ArmController {
     private final short PRODUCT_ID;
     private final short VENDOR_ID;
-    private final short X_RANGE = 30;
-    private final short Y_RANGE = 30;
-    private final short ARM_RANGE = 30;
+    private final short X_RANGE = 300;
+    private final short Y_RANGE = 300;
+    private final short ARM_RANGE = 300;
 
     private InverseKinematicsCalculator inverseKinematicsCalculator;
 

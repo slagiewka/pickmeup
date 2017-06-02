@@ -16,7 +16,7 @@ import java.util.List;
 public class ArmControllerTestApplication {
     private static short PRODUCT_ID = 0x0089;
     private static short VENDOR_ID = 0x1ffb;
-    private static float LASER_DIST = 9;
+    private static float LASER_DIST = 90;
 
     public static void main(String[] args) throws PortInUseException, UnsupportedCommOperationException, NoSuchPortException, IOException, InterruptedException {
         if(args.length == 2){
@@ -26,20 +26,20 @@ public class ArmControllerTestApplication {
 
         MapPoint closest = getClosestPoint();
 
-        double x = (closest.xValue() / 10) + LASER_DIST;
-        double y = closest.yValue() / 10;
+        double x = closest.xValue() + LASER_DIST;
+        double y = closest.yValue();
         System.out.println("x: " + x + ". y: " + y);
-        double z = 7.0;
+        double z = 70;
         short speed = 15;
 
         ArmController armController = new PololuArmController(PRODUCT_ID, VENDOR_ID);
-        armController.setPosition(16, 0, 25, 0, speed, false);
+        armController.setPosition(160, 0, 250, 0, speed, false);
         Thread.sleep(2000);
-        armController.setPosition(x, y, z+2.0, -30, speed, false);
+        armController.setPosition(x, y, z + 20, -30, speed, false);
         Thread.sleep(2000);
         armController.setPosition(x, y, z, -30, speed, true);
         Thread.sleep(2000);
-        armController.setPosition(16, 0, 25, 0, speed, true);
+        armController.setPosition(160, 0, 250, 0, speed, true);
 //        }
     }
 
